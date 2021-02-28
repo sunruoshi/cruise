@@ -60,7 +60,7 @@
         <el-col :span="8" align="end" justify="center">
           <el-dropdown>
             <span>
-              <el-avatar icon="el-icon-user-solid" size="40"></el-avatar>
+              <el-avatar icon="el-icon-user-solid" :size="40"></el-avatar>
             </span>
             <template #dropdown>
               <el-dropdown-menu>
@@ -198,7 +198,7 @@
         </div>
         <div id="agents">
           <el-row v-for="(agent, index) in agents" :key="index">
-            <Agents :agent="agent" v-show="showAgents(agent)" />
+            <Agents :agent="agent" v-if="showAgents(agent)" />
           </el-row>
         </div>
       </el-main>

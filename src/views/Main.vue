@@ -303,13 +303,9 @@ export default {
 }
 #card-view {
   border-bottom: none;
-  position: fixed;
-  right: 80px;
 }
 #list-view {
   border-bottom: none;
-  position: fixed;
-  right: 40px;
 }
 .icon-bg {
   font-size: 144px;
@@ -323,12 +319,5 @@ export default {
 .countAgents {
   height: 33.3%;
   padding: 10px, 10px;
-}
-.animated {
-  -webkit-animation: rotating 2s linear infinite;
-  -moz-animation: rotating 2s linear infinite;
-  -ms-animation: rotating 2s linear infinite;
-  -o-animation: rotating 2s linear infinite;
-  animation: rotating 2s linear infinite;
 }
 </style>

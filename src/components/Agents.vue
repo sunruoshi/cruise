@@ -4,7 +4,9 @@
       <span>
         <i class="icon-desktop icon-md" />
         <span class="domain">{{ agent.domain }}</span>
-        <el-tag id="tag" v-if="this.agent.building" size="mini" color="#ff9a2a">building</el-tag>
+        <el-tag id="tag" v-if="this.agent.building" size="mini" color="#ff9a2a"
+          >building</el-tag
+        >
         <el-tag id="tag" v-else size="mini" color="#7fbc39">idle</el-tag>
       </span>
       <span>
@@ -14,16 +16,25 @@
         {{ agent.path }}
       </span>
     </el-row>
-    <el-row type="flex" justify="space-between" align="middle" style="margin-top: 20px">
+    <el-row
+      type="flex"
+      justify="space-between"
+      align="middle"
+      style="margin-top: 20px"
+    >
       <el-button-group>
         <el-popover id="popover" placement="right" :width="400" trigger="click">
           <template #reference>
-            <el-button size="mini" id="add-btn"><i class="icon-plus icon-add"/></el-button>
+            <el-button size="mini" id="add-btn"
+              ><i class="icon-plus icon-add"
+            /></el-button>
           </template>
           <el-form>
             <el-form-item>
               <template #label>
-                <span id="text-muted">Separate multiple resource name with commas</span>
+                <span id="text-muted"
+                  >Separate multiple resource name with commas</span
+                >
               </template>
               <el-input
                 id="pop-input"
@@ -34,8 +45,12 @@
               ></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button id="deny-btn" size="mini" @click="addResources()">Add Resources</el-button>
-              <el-button id="cancel-btn" size="mini" @click="resetInput()">Cancel</el-button>
+              <el-button id="deny-btn" size="mini" @click="addResources()"
+                >Add Resources</el-button
+              >
+              <el-button id="cancel-btn" size="mini" @click="resetInput()"
+                >Cancel</el-button
+              >
             </el-form-item>
           </el-form>
         </el-popover>

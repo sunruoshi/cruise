@@ -57,7 +57,6 @@ $dark-gray: #e1e4e6;
   @extend %margin-common;
   background-color: $dark-secondary;
   color: #ccc;
-  width: auto;
 }
 .el-main {
   @extend %margin-common;
@@ -66,6 +65,8 @@ $dark-gray: #e1e4e6;
 .history {
   padding: 10px;
   line-height: 20px;
+  position: fixed;
+  bottom: 10px;
 }
 h3 {
   font-size: 24;
@@ -91,16 +92,30 @@ li {
   color: $light-primary;
   margin-right: 10px;
 }
+.el-drawer__body {
+  background: $dark-secondary;
+  color: #ccc;
+}
 #add-btn {
   @extend %button-common;
   font: 18px;
   margin-right: 10px;
+  margin-top: 10px;
+}
+#navi-btn {
+  border: none;
+  font-size: 20px;
+  background: transparent;
+  &:hover {
+    color: $light-primary;
+  }
 }
 #delete-btn {
   background-color: #efefef;
   font-weight: bold;
   border: none;
   margin-right: 10px;
+  margin-top: 10px;
   &:hover {
     color: $light-primary;
   }
@@ -110,6 +125,7 @@ li {
   @extend %button-common;
   font: 14px;
   font-weight: bold;
+  margin-top: 10px;
 }
 #cancel-btn {
   background-color: $light-secondary;
@@ -150,5 +166,33 @@ li {
 }
 #pop-input {
   color: $light-primary;
+}
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 </style>

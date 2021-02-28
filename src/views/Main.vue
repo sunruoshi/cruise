@@ -1,9 +1,58 @@
 <template>
   <el-container>
     <el-header class="shadow">
-      <el-row type="flex" align="middle" justify="space-between" style="padding: 10px">
+      <el-row
+        type="flex"
+        align="middle"
+        justify="space-between"
+        style="padding: 10px"
+      >
         <el-col :span="8">
-          <div></div>
+          <el-button
+            size="large"
+            id="navi-btn"
+            class="hidden-md-and-up"
+            @click="drawer = true"
+            ><i class="icon-navicon"
+          /></el-button>
+          <el-drawer
+            v-model="drawer"
+            :direction="direction"
+            :size="270"
+            :with-header="false"
+          >
+            <el-menu
+              :default-active="activeIndex"
+              :router="true"
+              background-color="#2d4054"
+              text-color="#ccc"
+              active-text-color="#00b4cf"
+            >
+              <el-menu-item index="/dashboard">
+                <template #title
+                  ><i class="icon-dashboard icon-md" /> DASHBOARD</template
+                >
+              </el-menu-item>
+              <el-menu-item index="/">
+                <i class="icon-sitemap icon-md" />
+                <template #title> AGENT</template>
+              </el-menu-item>
+              <el-menu-item index="/mycruise">
+                <i class="icon-boat icon-md" />
+                <template #title> MY CRUISE</template>
+              </el-menu-item>
+              <el-menu-item index="/help">
+                <i class="icon-life-bouy icon-md" />
+                <template #title> HELP</template></el-menu-item
+              >
+            </el-menu>
+            <div class="history">
+              <h3>History</h3>
+              <li v-for="(item, index) in histories" :key="index">
+                {{ item }}
+              </li>
+            </div>
+          </el-drawer>
         </el-col>
         <el-col :span="8" align="middle" justify="center">
           <img src="../assets/logo/logo.svg" style="height: 30px" />
@@ -15,7 +64,9 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item icon="icon-id-card" id="text-dropdown"> Profile</el-dropdown-item>
+                <el-dropdown-item icon="icon-id-card" id="text-dropdown">
+                  Profile</el-dropdown-item
+                >
                 <el-dropdown-item icon="icon-sign-in" id="text-dropdown">
                   Sign Out</el-dropdown-item
                 >
@@ -26,80 +77,88 @@
       </el-row>
     </el-header>
     <el-container>
-      <el-aside class="hidden-xs-only" width="270px">
-        <el-menu
-          :default-active="activeIndex"
-          :router="true"
-          background-color="#2d4054"
-          text-color="#ccc"
-          active-text-color="#00b4cf"
-        >
-          <el-menu-item index="/dashboard">
-            <template #title><i class="icon-dashboard icon-md" /> DASHBOARD</template>
-          </el-menu-item>
-          <el-menu-item index="/">
-            <i class="icon-sitemap icon-md" />
-            <template #title> AGENT</template>
-          </el-menu-item>
-          <el-menu-item index="/mycruise">
-            <i class="icon-boat icon-md" />
-            <template #title> MY CRUISE</template>
-          </el-menu-item>
-          <el-menu-item index="/help">
-            <i class="icon-life-bouy icon-md" />
-            <template #title> HELP</template></el-menu-item
-          >
-        </el-menu>
-        <div class="history">
-          <h3>History</h3>
-          <li v-for="(item, index) in histories" :key="index">
-            {{ item }}
-          </li>
-        </div>
-      </el-aside>
+      <Aside />
       <el-main>
         <div id="statusCard">
           <el-row :gutter="20">
-            <el-col :span="8">
-              <el-card shadow="hover" :body-style="cardBuilding">
+            <el-col :span="8" :xs="12">
+              <el-card
+                shadow="hover"
+                :body-style="cardBuilding"
+                class="status-card"
+              >
                 <el-row type="flex" justify="start">
-                  <strong style="font-size: 18px; color: #fff">Building</strong>
+                  <strong class="status-card-title">Building</strong>
+                  <i class="icon-cog icon-bg animated" />
                 </el-row>
                 <el-row type="flex" justify="end">
-                  <strong style="font-size: 48px; color: #fff">{{ countBuilding }}</strong>
+                  <strong class="status-card-number">{{
+                    countBuilding
+                  }}</strong>
                 </el-row>
               </el-card>
             </el-col>
-            <el-col :span="8">
-              <el-card shadow="hover" :body-style="cardIdle">
+            <el-col :span="8" :xs="12">
+              <el-card
+                shadow="hover"
+                :body-style="cardIdle"
+                class="status-card"
+              >
                 <el-row type="flex" justify="start">
-                  <strong style="font-size: 18px; color: #fff">Idle</strong>
+                  <strong class="status-card-title">Idle</strong>
+                  <i class="icon-coffee icon-bg" />
                 </el-row>
                 <el-row type="flex" justify="end">
-                  <strong style="font-size: 48px; color: #fff">{{
+                  <strong class="status-card-number">{{
                     countAgents - countBuilding
                   }}</strong>
                 </el-row>
               </el-card>
             </el-col>
-            <el-col :span="8">
-              <el-card shadow="hover" :body-style="{ height: '10vh' }">
-                <el-row type="flex" justify="space-between" align="middle" class="countAgents">
+            <el-col :span="8" :xs="24">
+              <el-card
+                shadow="hover"
+                :body-style="{ height: '10vh' }"
+                class="status-card"
+              >
+                <el-row
+                  type="flex"
+                  justify="space-between"
+                  align="middle"
+                  class="countAgents"
+                >
                   <small style="font-size: 12px">ALL</small>
                   <strong style="font-size: 20px">{{ countAgents }}</strong>
                 </el-row>
-                <el-row type="flex" justify="space-between" align="middle" class="countAgents">
+                <el-row
+                  type="flex"
+                  justify="space-between"
+                  align="middle"
+                  class="countAgents"
+                >
                   <small style="font-size: 12px">PHYSICAL</small>
                   <strong style="font-size: 20px">{{ countPhysical }}</strong>
                 </el-row>
-                <el-row type="flex" justify="space-between" align="middle" class="countAgents">
+                <el-row
+                  type="flex"
+                  justify="space-between"
+                  align="middle"
+                  class="countAgents"
+                >
                   <small style="font-size: 12px">VIRTUAL</small>
-                  <strong style="font-size: 20px">{{ countAgents - countPhysical }}</strong>
+                  <strong style="font-size: 20px">{{
+                    countAgents - countPhysical
+                  }}</strong>
                 </el-row>
               </el-card>
             </el-col>
           </el-row>
         </div>
+        <el-input
+          class="hidden-sm-and-up"
+          prefix-icon="icon-search icon-md-no-margin"
+          style="margin-top: 10px"
+        />
         <div id="controlBar">
           <el-menu
             default-active="ALL"
@@ -110,13 +169,29 @@
             <el-menu-item index="ALL">ALL</el-menu-item>
             <el-menu-item index="Physical">Physical</el-menu-item>
             <el-menu-item index="Virtual">Virtual</el-menu-item>
-            <el-menu-item id="el-menu-item-input" disabled class="hidden-xs-only">
-              <el-input size="small" prefix-icon="icon-search icon-md-no-margin" />
+            <el-menu-item
+              id="el-menu-item-input"
+              disabled
+              class="hidden-xs-only"
+            >
+              <el-input
+                size="small"
+                prefix-icon="icon-search icon-md-no-margin"
+              />
             </el-menu-item>
-            <el-menu-item index="Card" class="hidden-md-and-down" id="no-border" disabled>
+            <el-menu-item
+              index="Card"
+              class="hidden-xs-only"
+              id="card-view"
+              disabled
+            >
               <i class="icon-th-card icon-md-no-margin" />
             </el-menu-item>
-            <el-menu-item :index="activeAgents" class="hidden-md-and-down" id="no-border">
+            <el-menu-item
+              :index="activeAgents"
+              class="hidden-xs-only"
+              id="list-view"
+            >
               <i class="icon-th-list icon-md-no-margin" />
             </el-menu-item>
           </el-menu>
@@ -139,6 +214,9 @@ export default {
   components: {
     Agents: defineAsyncComponent(() =>
       import(/* webpackChunkName: "agents" */ "../components/Agents.vue")
+    ),
+    Aside: defineAsyncComponent(() =>
+      import(/* webpackChunkName: "aside" */ "../views/Aside.vue")
     )
   },
   computed: {
@@ -175,7 +253,9 @@ export default {
       cardIdle: {
         background: "#7fbc39",
         height: "10vh"
-      }
+      },
+      drawer: false,
+      direction: "ltr"
     };
   },
   methods: {
@@ -197,32 +277,58 @@ export default {
 
 <style lang="scss" scoped>
 .el-menu {
-  margin-top: 10px;
   border-right: none;
 }
 .icon-md-no-margin {
   font-size: 20px;
 }
+.status-card {
+  z-index: 20;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.status-card-title {
+  font-size: 18px;
+  color: #fff;
+  z-index: 10;
+}
+.status-card-number {
+  font-size: 48px;
+  color: #fff;
+  z-index: 10;
+}
 #el-menu-item-input {
   border-bottom: none;
   opacity: 1;
 }
-#no-border {
+#card-view {
   border-bottom: none;
+  position: fixed;
+  right: 80px;
 }
-#input {
-  &:focus {
-    border-color: none;
-    outline-color: none;
-  }
+#list-view {
+  border-bottom: none;
+  position: fixed;
+  right: 40px;
 }
 .icon-bg {
   font-size: 144px;
   opacity: 20%;
-  z-index: -1;
+  z-index: 0;
+  position: absolute;
+  left: 40%;
+  top: -100%;
+  color: #fff;
 }
 .countAgents {
   height: 33.3%;
   padding: 10px, 10px;
+}
+.animated {
+  -webkit-animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
+  -ms-animation: rotating 2s linear infinite;
+  -o-animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
 }
 </style>
